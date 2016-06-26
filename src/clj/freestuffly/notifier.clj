@@ -1,6 +1,7 @@
 (ns freestuffly.notifier
   (:require [clj-http.client :as client])
   (:require [hickory.core :as h])
+  (:require [clj-mailgun.core :as mailgun])
   (:require [clojure.string :as string])
   (:require [hickory.select :as s]))
 
@@ -34,3 +35,13 @@
 (defn listen
   []
   (presentable (content-for (parsed-html (client/get my-group-urls)))))
+
+(defn send-email
+  []
+  (let [credentials {:api-key (System/getenv "MAILGUN_API_KEY") :domain (System/getenv "YOUR_DOMAIN")}
+        params {
+                :from "emile.swarts123@gmail.com"
+                :to "emile.swarts123@gmail.com"
+                :subject "Free stuffly"
+                :text (listen)}]
+    (mailgun/send-email credentials params)))
