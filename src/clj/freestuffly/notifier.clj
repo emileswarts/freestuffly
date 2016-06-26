@@ -36,7 +36,7 @@
   []
   (let [credentials {:api-key (System/getenv "MAILGUN_API_KEY") :domain (System/getenv "YOUR_DOMAIN")}
         params {
-                :from "emile.swarts123@gmail.com"
+                :from "emile@fierce-everglades-57947.herokuapp.com"
                 :to "emile.swarts123@gmail.com"
                 :subject "Free stuffly"
                 :text (presentable (content-for (parsed-html (client/get my-group-urls))))}]
