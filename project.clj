@@ -14,6 +14,7 @@
                  [org.webjars/font-awesome "4.6.3"]
                  [org.webjars.bower/tether "1.3.2"]
                  [org.webjars/jquery "2.2.4"]
+                 [clj-http "3.1.0"]
                  [org.clojure/tools.logging "0.3.1"]
                  [compojure "1.5.1"]
                  [ring-webjars "0.1.1"]
@@ -38,7 +39,7 @@
 
   :profiles
   {:uberjar {:omit-source true
-             
+
              :aot :all
              :uberjar-name "freestuffly.jar"
              :source-paths ["env/prod/clj"]
@@ -52,7 +53,7 @@
                                  [ring/ring-devel "1.5.0"]
                                  [pjstadig/humane-test-output "0.8.0"]]
                   :plugins      [[com.jakemccrary/lein-test-refresh "0.14.0"]]
-                  
+
                   :source-paths ["env/dev/clj" "test/clj"]
                   :resource-paths ["env/dev/resources"]
                   :repl-options {:init-ns user}

@@ -6,6 +6,7 @@
             [clojure.tools.cli :refer [parse-opts]]
             [clojure.tools.logging :as log]
             [luminus.logger :as logger]
+            [freestuffly.notifier :as notifier]
             [mount.core :as mount])
   (:gen-class))
 
@@ -47,6 +48,7 @@
                         mount/start-with-args
                         :started)]
     (log/info component "started"))
+  (notifier/listen)
   (.addShutdownHook (Runtime/getRuntime) (Thread. stop-app)))
 
 (defn -main [& args]
