@@ -32,10 +32,6 @@
   [results]
   (string/join "-------- \n" results))
 
-(defn listen
-  []
-  (presentable (content-for (parsed-html (client/get my-group-urls)))))
-
 (defn send-email
   []
   (let [credentials {:api-key (System/getenv "MAILGUN_API_KEY") :domain (System/getenv "YOUR_DOMAIN")}
@@ -43,5 +39,9 @@
                 :from "emile.swarts123@gmail.com"
                 :to "emile.swarts123@gmail.com"
                 :subject "Free stuffly"
-                :text (listen)}]
+                :text (presentable (content-for (parsed-html (client/get my-group-urls))))}]
     (mailgun/send-email credentials params)))
+
+(defn listen
+  []
+  (send-email))
