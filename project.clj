@@ -16,6 +16,7 @@
                  [org.webjars/jquery "2.2.4"]
                  [clj-http "3.1.0"]
                  [hickory "0.6.0"]
+                 [clj-mailgun "0.2.0"]
                  [org.clojure/tools.logging "0.3.1"]
                  [compojure "1.5.1"]
                  [ring-webjars "0.1.1"]
