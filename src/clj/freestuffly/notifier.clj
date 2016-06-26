@@ -34,7 +34,7 @@
 
 (defn send-email
   []
-  (let [credentials {:api-key (System/getenv "MAILGUN_API_KEY") :domain (System/getenv "YOUR_DOMAIN")}
+  (let [credentials {:api-key (System/getenv "MAILGUN_API_KEY") :domain (System/getenv "MAILGUN_DOMAIN")}
         params {
                 :from "emile@fierce-everglades-57947.herokuapp.com"
                 :to "emile.swarts123@gmail.com"
