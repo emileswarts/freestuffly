@@ -7,7 +7,9 @@
 
 (def my-group-urls "https://groups.freecycle.org/group/southwark-freecycle/posts/offer?page=1&resultsperpage=3&showall=off&include_offers=off&include_wanteds=off&include_receiveds=off&include_takens=off")
 
-(def site-tree (-> (client/get my-group-urls) :body h/parse h/as-hickory))
+(defn site-tree
+  []
+  (client/get my-group-urls) :body h/parse h/as-hickory)
 
 (defn parsed-html [html]
   (-> (s/select
@@ -19,10 +21,9 @@
           )
         site-tree)))
 
-(def rubbish-value?
-  (fn
-    [content-values]
-    (not= (content-values :content) ["See details"])))
+(defn rubbish-value?
+  [content-values]
+  (not= (content-values :content) ["See details"]))
 
 (defn content-for
   [html-vector]
