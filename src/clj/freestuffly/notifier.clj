@@ -43,4 +43,5 @@
 
 (defn listen
   []
-  (send-email (presentable (content-for (parsed-html site-tree)))))
+  (send-email
+    (presentable (content-for (parsed-html site-tree)))))
