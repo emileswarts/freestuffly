@@ -7,19 +7,17 @@
 
 (def my-group-urls "https://groups.freecycle.org/group/southwark-freecycle/posts/offer?page=1&resultsperpage=3&showall=off&include_offers=off&include_wanteds=off&include_receiveds=off&include_takens=off")
 
-(defn site-tree
-  []
-  (client/get my-group-urls) :body h/parse h/as-hickory)
+(def site-tree (-> (client/get my-group-urls) :body h/parse h/as-hickory))
 
-(defn parsed-html [html]
+(defn parsed-html
+  [html]
   (-> (s/select
         (s/descendant
           (s/id "group_posts_table")
           (s/and (s/tag :tr))
           (s/and (s/tag :td) (s/nth-child 2))
-          (s/and (s/tag :a) (s/nth-child 1))
-          )
-        site-tree)))
+          (s/and (s/tag :a) (s/nth-child 1)))
+      html)))
 
 (defn rubbish-value?
   [content-values]
@@ -31,18 +29,18 @@
 
 (defn presentable
   [results]
-  (string/join "-------- \n" results))
+  (string/join "\n\n" results))
 
 (defn send-email
-  []
+  [content]
   (let [credentials {:api-key (System/getenv "MAILGUN_API_KEY") :domain (System/getenv "MAILGUN_DOMAIN")}
         params {
                 :from "emile@fierce-everglades-57947.herokuapp.com"
                 :to "emile.swarts123@gmail.com"
                 :subject "Free stuffly"
-                :text (presentable (content-for (parsed-html (client/get my-group-urls))))}]
+                :text content}]
     (mailgun/send-email credentials params)))
 
 (defn listen
   []
-  (send-email))
+  (send-email (presentable (content-for (parsed-html site-tree)))))
