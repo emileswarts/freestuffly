@@ -10,6 +10,7 @@
                  [ring-middleware-format "0.7.0"]
                  [metosin/ring-http-response "0.7.0"]
                  [bouncer "1.0.0"]
+                 [com.banzai/postmark "1.3.1"]
                  [org.webjars/bootstrap "4.0.0-alpha.2"]
                  [org.webjars/font-awesome "4.6.3"]
                  [org.webjars.bower/tether "1.3.2"]

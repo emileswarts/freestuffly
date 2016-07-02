@@ -3,11 +3,14 @@
   (:require [hickory.core :as h])
   (:require [clj-mailgun.core :as mailgun])
   (:require [clojure.string :as string])
+  (:require [postmark.core :as p])
   (:require [hickory.select :as s]))
 
 (def my-group-urls "https://groups.freecycle.org/group/southwark-freecycle/posts/offer?page=1&resultsperpage=3&showall=off&include_offers=off&include_wanteds=off&include_receiveds=off&include_takens=off")
 
 (def site-tree (-> (client/get my-group-urls) :body h/parse h/as-hickory))
+
+(def pm (p/postmark (System/getenv "POSTMARK_API_KEY") "from-address@example.com"))
 
 (defn parsed-html
   [html]
@@ -33,13 +36,9 @@
 
 (defn send-email
   [content]
-  (let [credentials {:api-key (System/getenv "MAILGUN_API_KEY") :domain (System/getenv "YOUR_DOMAIN")}
-        params {
-                :from "emile@fierce-everglades-57947.herokuapp.com"
-                :to "emile.swarts123@gmail.com"
-                :subject "Free stuffly"
-                :text "hello"}]
-    (mailgun/send-email credentials params)))
+  (pm {:to "emile.swarts123@gmail"
+       :subject "Free stuffly"
+       :text content}))
 
 (defn listen
   []
