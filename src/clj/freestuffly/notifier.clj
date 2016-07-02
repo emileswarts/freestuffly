@@ -8,9 +8,10 @@
 
 (def my-group-urls "https://groups.freecycle.org/group/southwark-freecycle/posts/offer?page=1&resultsperpage=3&showall=off&include_offers=off&include_wanteds=off&include_receiveds=off&include_takens=off")
 
-(def site-tree (-> (client/get my-group-urls) :body h/parse h/as-hickory))
+(def site-tree
+  (-> (client/get my-group-urls) :body h/parse h/as-hickory))
 
-(def pm (p/postmark (System/getenv "POSTMARK_API_KEY") "from-address@example.com"))
+(def pm (p/postmark (System/getenv "POSTMARK_API_KEY") (System/getenv "POSTMARK_SENDER_SIGNATURE")))
 
 (defn parsed-html
   [html]
@@ -36,7 +37,7 @@
 
 (defn send-email
   [content]
-  (pm {:to "emile.swarts123@gmail"
+  (pm {:to "emile.swarts123+heroku@gmail.com"
        :subject "Free stuffly"
        :text content}))
 
