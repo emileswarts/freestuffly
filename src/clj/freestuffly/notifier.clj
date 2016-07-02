@@ -38,7 +38,7 @@
                 :from "emile@fierce-everglades-57947.herokuapp.com"
                 :to "emile.swarts123@gmail.com"
                 :subject "Free stuffly"
-                :text content}]
+                :text "hello"}]
     (mailgun/send-email credentials params)))
 
 (defn listen
