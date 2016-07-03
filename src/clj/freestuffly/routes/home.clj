@@ -18,5 +18,6 @@
 
 (defroutes home-routes
   (GET "/" [] (home-page))
+  (GET "/scrape" [] (scrape-notify-page))
   (GET "/about" [] (about-page)))
 
