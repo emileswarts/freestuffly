@@ -17,7 +17,7 @@
       (re-find (re-matcher interesting-keywords (first (:content (into {} result))))))
     (set results)))
 
-(def my-group-urls "https://groups.freecycle.org/group/southwark-freecycle/posts/offer?page=1&resultsperpage=3&showall=off&include_offers=off&include_wanteds=off&include_receiveds=off&include_takens=off")
+(def my-group-urls "https://groups.freecycle.org/group/southwark-freecycle/posts/offer?page=1&resultsperpage=50&showall=off&include_offers=off&include_wanteds=off&include_receiveds=off&include_takens=off")
 
 (def site-tree
   (-> (client/get my-group-urls) :body h/parse h/as-hickory))
