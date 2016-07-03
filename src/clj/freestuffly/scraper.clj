@@ -50,7 +50,7 @@
 
 (defn- presentable
   [results]
-  (str "<h1>FOUND<h1>\n\n\n\n"
+  (str "FOUND\n\n\n\n"
        (string/join "\n\n\n"
                     (map vals results))))
 
