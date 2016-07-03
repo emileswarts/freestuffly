@@ -16,6 +16,6 @@
              :subject subject
              :text content}))
 
-(defn listen
+(defn notify-scrape-results
   []
   (send-email (scraper/scraped-content)))

@@ -2,6 +2,7 @@
   (:require [freestuffly.layout :as layout]
             [compojure.core :refer [defroutes GET]]
             [ring.util.http-response :as response]
+            [freestuffly.notifier :as notifier]
             [clojure.java.io :as io]))
 
 (defn home-page []
@@ -10,6 +11,10 @@
 
 (defn about-page []
   (layout/render "about.html"))
+
+(defn scrape-notify-page []
+  (notifier/notify-scrape-results)
+  (layout/render "home.html"))
 
 (defroutes home-routes
   (GET "/" [] (home-page))
