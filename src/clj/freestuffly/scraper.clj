@@ -15,7 +15,9 @@
   [results]
   (cset/select
     (fn [result]
-      (re-find (re-matcher interesting-keywords (first (:content (into {} result))))))
+      (re-find
+        (re-matcher interesting-keywords
+                    (first (:content (into {} result))))))
     (set results)))
 
 (def ^:private my-group-urls
@@ -38,13 +40,13 @@
           (s/and (s/tag :a) (s/nth-child 1)))
       html)))
 
-(defn- rubbish-value?
+(defn- interesting-value?
   [content-values]
   (not= (content-values :content) ["See details"]))
 
 (defn- content-for
   [html-vector]
-  (filter rubbish-value? (map #(select-keys % [:attrs :content]) html-vector)))
+  (filter interesting-value? (map #(select-keys % [:attrs :content]) html-vector)))
 
 (defn- presentable
   [results]
