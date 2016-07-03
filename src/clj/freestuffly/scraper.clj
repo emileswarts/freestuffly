@@ -50,7 +50,9 @@
 
 (defn- presentable
   [results]
-  (str "FOUND\n\n\n\n" (string/join "\n\n" results)))
+  (str "<h1>FOUND<h1>\n\n\n\n"
+       (string/join "\n\n\n"
+                    (map vals results))))
 
 (defn scraped-content
   []
