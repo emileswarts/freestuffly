@@ -3,8 +3,19 @@
   (:require [hickory.core :as h])
   (:require [clj-mailgun.core :as mailgun])
   (:require [clojure.string :as string])
+  (:require [clojure.set :as cset])
   (:require [postmark.core :as p])
   (:require [hickory.select :as s]))
+
+(def interesting-keywords
+  #"(?i)paint|playstation|camping|emulsion|lamp|ladder|roller|xbox|mac")
+
+(defn interesting-finds
+  [results]
+  (cset/select
+    (fn [result]
+      (re-find (re-matcher interesting-keywords (first (:content (into {} result))))))
+    (set results)))
 
 (def my-group-urls "https://groups.freecycle.org/group/southwark-freecycle/posts/offer?page=1&resultsperpage=3&showall=off&include_offers=off&include_wanteds=off&include_receiveds=off&include_takens=off")
 
@@ -44,4 +55,4 @@
 (defn listen
   []
   (send-email
-    (presentable (content-for (parsed-html site-tree)))))
+    (presentable (interesting-finds (content-for (parsed-html site-tree))))))
