@@ -5,22 +5,22 @@
   (:require [clojure.set :as cset])
   (:require [hickory.select :as s]))
 
-(def interesting-keywords
+(def ^{:private true} interesting-keywords
   #"(?i)paint|playstation|camping|emulsion|lamp|ladder|roller|xbox|mac|fish|marine|kitchen")
 
-(defn interesting-finds
+(defn- interesting-finds
   [results]
   (cset/select
     (fn [result]
       (re-find (re-matcher interesting-keywords (first (:content (into {} result))))))
     (set results)))
 
-(def my-group-urls "https://groups.freecycle.org/group/southwark-freecycle/posts/offer?page=1&resultsperpage=50&showall=off&include_offers=off&include_wanteds=off&include_receiveds=off&include_takens=off")
+(def ^{:private true} my-group-urls "https://groups.freecycle.org/group/southwark-freecycle/posts/offer?page=1&resultsperpage=50&showall=off&include_offers=off&include_wanteds=off&include_receiveds=off&include_takens=off")
 
-(def site-tree
+(def ^{:private true} site-tree
   (-> (client/get my-group-urls) :body h/parse h/as-hickory))
 
-(defn parsed-html
+(defn- parsed-html
   [html]
   (-> (s/select
         (s/descendant
@@ -30,16 +30,16 @@
           (s/and (s/tag :a) (s/nth-child 1)))
       html)))
 
-(defn rubbish-value?
+(defn- rubbish-value?
   [content-values]
   (not= (content-values :content) ["See details"]))
 
-(defn content-for
+(defn- content-for
   [html-vector]
   (filter rubbish-value? (map #(select-keys % [:attrs :content]) html-vector)))
 
-(defn presentable
+(defn- presentable
   [results]
   (string/join "\n\n" results))
 
-(def scraped-content (presentable (interesting-finds (content-for (parsed-html site-tree)))))
+(defn scraped-content (presentable (interesting-finds (content-for (parsed-html site-tree)))))

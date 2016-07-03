@@ -3,13 +3,22 @@
   (:require [postmark.core :as p])
   (:require [freestuffly.scraper :as scraper]))
 
-(def pm (p/postmark (System/getenv "POSTMARK_API_KEY") (System/getenv "POSTMARK_SENDER_SIGNATURE")))
+(def ^{:private true} my-email
+  "emile.swarts123+heroku@gmail.com")
 
-(defn send-email
+(def ^{:private true} subject
+  "Free stuffly finds")
+
+(def ^{:private true} postmark
+  (p/postmark
+    (System/getenv "POSTMARK_API_KEY")
+    (System/getenv "POSTMARK_SENDER_SIGNATURE")))
+
+(defn- send-email
   [content]
-  (pm {:to "emile.swarts123+heroku@gmail.com"
-       :subject "Free stuffly"
-       :text content}))
+  (postmark {:to my-email
+             :subject subject
+             :text content}))
 
 (defn listen
   []
