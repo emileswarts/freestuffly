@@ -5,7 +5,7 @@
   (:require [clojure.set :as cset])
   (:require [hickory.select :as s]))
 
-(def ^{:private true} interesting-keywords
+(def ^:private interesting-keywords
   #"(?i)paint|playstation|camping|emulsion|lamp|ladder|roller|xbox|mac|fish|marine|kitchen")
 
 (defn- interesting-finds
@@ -15,9 +15,9 @@
       (re-find (re-matcher interesting-keywords (first (:content (into {} result))))))
     (set results)))
 
-(def ^{:private true} my-group-urls "https://groups.freecycle.org/group/southwark-freecycle/posts/offer?page=1&resultsperpage=50&showall=off&include_offers=off&include_wanteds=off&include_receiveds=off&include_takens=off")
+(def ^:private my-group-urls "https://groups.freecycle.org/group/southwark-freecycle/posts/offer?page=1&resultsperpage=50&showall=off&include_offers=off&include_wanteds=off&include_receiveds=off&include_takens=off")
 
-(def ^{:private true} site-tree
+(def ^:private site-tree
   (-> (client/get my-group-urls) :body h/parse h/as-hickory))
 
 (defn- parsed-html
@@ -42,4 +42,9 @@
   [results]
   (string/join "\n\n" results))
 
-(defn scraped-content (presentable (interesting-finds (content-for (parsed-html site-tree)))))
+(defn scraped-content
+  []
+  (presentable
+    (interesting-finds
+      (content-for
+        (parsed-html site-tree)))))
