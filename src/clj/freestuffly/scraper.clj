@@ -8,6 +8,9 @@
 (def ^:private interesting-keywords
   #"(?i)paint|playstation|camping|emulsion|lamp|ladder|roller|xbox|mac|fish|marine|kitchen")
 
+(def ^:private freecycle-group "southwark-freecycle")
+(def ^:private freecycle-results-per-page 50)
+
 (defn- interesting-finds
   [results]
   (cset/select
@@ -15,7 +18,12 @@
       (re-find (re-matcher interesting-keywords (first (:content (into {} result))))))
     (set results)))
 
-(def ^:private my-group-urls "https://groups.freecycle.org/group/southwark-freecycle/posts/offer?page=1&resultsperpage=50&showall=off&include_offers=off&include_wanteds=off&include_receiveds=off&include_takens=off")
+(def ^:private my-group-urls
+  (str "https://groups.freecycle.org/group/"
+       freecycle-group
+       "/posts/offer?page=1&resultsperpage="
+       freecycle-results-per-page
+       "&showall=off&include_offers=off&include_wanteds=off&include_receiveds=off&include_takens=off"))
 
 (def ^:private site-tree
   (-> (client/get my-group-urls) :body h/parse h/as-hickory))
