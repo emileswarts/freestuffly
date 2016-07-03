@@ -22,4 +22,4 @@
 
 (defn listen
   []
-  (send-email scraper/scraped-content))
+  (send-email (scraper/scraped-content)))
