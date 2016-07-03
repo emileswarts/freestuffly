@@ -8,7 +8,7 @@
   (:require [hickory.select :as s]))
 
 (def interesting-keywords
-  #"(?i)paint|playstation|camping|emulsion|lamp|ladder|roller|xbox|mac")
+  #"(?i)paint|playstation|camping|emulsion|lamp|ladder|roller|xbox|mac|fish|marine|kitchen")
 
 (defn interesting-finds
   [results]
