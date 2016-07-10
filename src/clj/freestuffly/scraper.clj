@@ -6,7 +6,7 @@
   (:require [hickory.select :as s]))
 
 (def ^:private interesting-keywords
-  #"(?i)paint|playstation|camp|emulsion|lamp|ladder|roller|xbox|mac|fish|marine|kitchen|new|unused|ergodox|cherry")
+  #"(?i)paint|playstation|camp|emulsion|lamp|ladder|roller|xbox|mac|fish|marine|kitchen|new|unused|ergodox|cherry|programming|roller|suitcase")
 
 (def ^:private freecycle-group "southwark-freecycle")
 (def ^:private freecycle-results-per-page 100)
