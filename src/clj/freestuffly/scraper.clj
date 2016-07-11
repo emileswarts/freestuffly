@@ -3,10 +3,16 @@
   (:require [hickory.core :as h])
   (:require [clojure.string :as string])
   (:require [clojure.set :as cset])
+  (:require [clj-yaml.core :as yaml])
   (:require [hickory.select :as s]))
 
-(def ^:private interesting-keywords
-  #"(?i)paint|playstation|camp|emulsion|lamp|ladder|roller|xbox|mac|fish|marine|kitchen|new|unused|ergodox|cherry|programming|roller|suitcase|fan")
+(defn- interesting-keywords
+  []
+  (:keywords (yaml/parse-string (slurp "config/gumtree.yml"))))
+
+(defn- interesting-keywords-regex
+  []
+  (re-pattern (str "(?i)" (string/join "|" (interesting-keywords)))))
 
 (def ^:private freecycle-group "southwark-freecycle")
 (def ^:private freecycle-results-per-page 100)
@@ -16,7 +22,7 @@
   (cset/select
     (fn [result]
       (re-find
-        (re-matcher interesting-keywords
+        (re-matcher (interesting-keywords-regex)
                     (first (:content (into {} result))))))
     (set results)))
 
