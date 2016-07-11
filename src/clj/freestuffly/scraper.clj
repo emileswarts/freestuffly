@@ -27,7 +27,8 @@
        freecycle-results-per-page
        "&showall=off&include_offers=off&include_wanteds=off&include_receiveds=off&include_takens=off"))
 
-(def ^:private site-tree
+(defn- site-tree
+  []
   (-> (client/get my-group-urls) :body h/parse h/as-hickory))
 
 (defn- parsed-html
@@ -55,8 +56,5 @@
                     (map vals results))))
 
 (defn scraped-content
-  []
-  (presentable
-    (interesting-finds
-      (content-for
-        (parsed-html site-tree)))))
+  ([] (scraped-content site-tree))
+  ([content-hash] (presentable (interesting-finds (content-for (parsed-html (content-hash)))))))
