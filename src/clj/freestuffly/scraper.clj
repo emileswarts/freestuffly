@@ -12,9 +12,9 @@
 
 (defn- interesting-keywords-regex [] (re-pattern (str "(?i)" (string/join "|" (interesting-keywords)))))
 
-(def ^:private freecycle-group "southwark-freecycle")
+(def ^:private freecycle-group (:group config))
 
-(def ^:private freecycle-results-per-page 100)
+(def ^:private freecycle-results-per-page (:per_page config))
 
 (defn- interesting-finds
   [results]
