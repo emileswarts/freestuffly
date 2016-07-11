@@ -28,8 +28,8 @@
        "&showall=off&include_offers=off&include_wanteds=off&include_receiveds=off&include_takens=off"))
 
 (defn- site-tree
-  []
-  (-> (client/get my-group-urls) :body h/parse h/as-hickory))
+  [scraped-html]
+  (h/as-hickory (h/parse scraped-html)))
 
 (defn- parsed-html
   [html]
@@ -56,5 +56,9 @@
                     (map vals results))))
 
 (defn scraped-content
-  ([] (scraped-content site-tree))
-  ([content-hash] (presentable (interesting-finds (content-for (parsed-html (content-hash)))))))
+  ([] (scraped-content (:body (client/get my-group-urls))))
+  ([scraped-html] (presentable
+                    (interesting-finds
+                      (content-for
+                        (parsed-html
+                          (site-tree scraped-html)))))))
