@@ -6,15 +6,14 @@
   (:require [clj-yaml.core :as yaml])
   (:require [hickory.select :as s]))
 
-(defn- interesting-keywords
-  []
-  (:keywords (yaml/parse-string (slurp "config/gumtree.yml"))))
+(def ^:private config (yaml/parse-string (slurp "config/gumtree.yml")))
 
-(defn- interesting-keywords-regex
-  []
-  (re-pattern (str "(?i)" (string/join "|" (interesting-keywords)))))
+(defn- interesting-keywords [] (:keywords config))
+
+(defn- interesting-keywords-regex [] (re-pattern (str "(?i)" (string/join "|" (interesting-keywords)))))
 
 (def ^:private freecycle-group "southwark-freecycle")
+
 (def ^:private freecycle-results-per-page 100)
 
 (defn- interesting-finds
