@@ -48,7 +48,7 @@
        (string/join "\n\n\n"
                     (map vals results))))
 
-(defn parse
+(defn parsed
   [scraped-html]
   (presentable
     (interesting-finds
