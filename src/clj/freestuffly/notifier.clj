@@ -1,7 +1,7 @@
 (ns freestuffly.notifier
   (:require [clj-http.client :as client])
   (:require [postmark.core :as p])
-  (:require [freestuffly.scraper :as scraper]))
+  (:require [freestuffly.groups-scraper :as scraper]))
 
 (def ^:private my-email "emile.swarts123+heroku@gmail.com")
 (def ^:private subject "Free stuffly finds")
@@ -18,4 +18,4 @@
 
 (defn notify-scrape-results
   []
-  (send-email (scraper/scraped-content)))
+  (send-email (scraper/combined-groups-results)))

@@ -1,8 +1,7 @@
 (ns freestuffly.scraper
-  (:require [clj-http.client :as client])
   (:require [hickory.core :as h])
-  (:require [clojure.string :as string])
   (:require [clojure.set :as cset])
+  (:require [clojure.string :as string])
   (:require [clj-yaml.core :as yaml])
   (:require [hickory.select :as s]))
 
@@ -12,10 +11,6 @@
 
 (defn- interesting-keywords-regex [] (re-pattern (str "(?i)" (string/join "|" (interesting-keywords)))))
 
-(def ^:private freecycle-group (:group config))
-
-(def ^:private freecycle-results-per-page (:per_page config))
-
 (defn- interesting-finds
   [results]
   (cset/select
@@ -24,13 +19,6 @@
         (re-matcher (interesting-keywords-regex)
                     (first (:content (into {} result))))))
     (set results)))
-
-(def ^:private my-group-urls
-  (str "https://groups.freecycle.org/group/"
-       freecycle-group
-       "/posts/offer?page=1&resultsperpage="
-       freecycle-results-per-page
-       "&showall=off&include_offers=off&include_wanteds=off&include_receiveds=off&include_takens=off"))
 
 (defn- site-tree
   [scraped-html]
@@ -61,9 +49,9 @@
                     (map vals results))))
 
 (defn scraped-content
-  ([] (scraped-content (:body (client/get my-group-urls))))
-  ([scraped-html] (presentable
-                    (interesting-finds
-                      (content-for
-                        (parsed-html
-                          (site-tree scraped-html)))))))
+  [scraped-html]
+  (presentable
+    (interesting-finds
+      (content-for
+        (parsed-html
+          (site-tree scraped-html))))))

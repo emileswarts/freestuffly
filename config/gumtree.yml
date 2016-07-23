@@ -1,4 +1,9 @@
-group: "southwark-freecycle"
+groups:
+  - "southwark-freecycle"
+  - "towerhamletsfreecycle"
+  - "LewishamUK"
+  - "LambethUK"
+  - "HackneyUK"
 per_page: 100
 keywords:
   - aquarium

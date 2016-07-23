@@ -48,7 +48,6 @@
                         mount/start-with-args
                         :started)]
     (log/info component "started"))
-  (notifier/notify-scrape-results)
   (.addShutdownHook (Runtime/getRuntime) (Thread. stop-app)))
 
 (defn -main [& args]
