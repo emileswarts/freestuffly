@@ -1,4 +1,4 @@
-(ns freestuffly.groups-scraper
+(ns freestuffly.gumtree.groups-scraper
   (:require [clj-yaml.core :as yaml])
   (:require [clj-http.client :as client])
   (:require [clojure.string :as string])
@@ -27,7 +27,7 @@
          [group-url]
          (scraper/scraped-content (:body (client/get group-url)))) my-group-urls))
 
-(defn combined-groups-results
+(defn results
   []
   (println groups-content)
   (string/join " \n "  (groups-content)))
