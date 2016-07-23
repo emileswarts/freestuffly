@@ -2,7 +2,7 @@
   (:require [clj-yaml.core :as yaml])
   (:require [clj-http.client :as client])
   (:require [clojure.string :as string])
-  (:require [freestuffly.scraper :as scraper]))
+  (:require [freestuffly.gumtree.result-parser :as result-parser]))
 
 (def ^:private config (yaml/parse-string (slurp "config/gumtree.yml")))
 
@@ -23,11 +23,8 @@
 
 (defn groups-content
   []
-  (map (fn
-         [group-url]
-         (scraper/scraped-content (:body (client/get group-url)))) my-group-urls))
+  (map
+    (fn [group-url] (result-parser/parse (:body (client/get group-url))))
+    my-group-urls))
 
-(defn results
-  []
-  (println groups-content)
-  (string/join " \n "  (groups-content)))
+(defn results [] (string/join " \n "  (groups-content)))

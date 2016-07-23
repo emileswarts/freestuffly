@@ -1,4 +1,4 @@
-(ns freestuffly.scraper
+(ns freestuffly.gumtree.result-parser
   (:require [hickory.core :as h])
   (:require [clojure.set :as cset])
   (:require [clojure.string :as string])
@@ -48,7 +48,7 @@
        (string/join "\n\n\n"
                     (map vals results))))
 
-(defn scraped-content
+(defn parse
   [scraped-html]
   (presentable
     (interesting-finds
