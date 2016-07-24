@@ -24,7 +24,9 @@
 (defn groups-content
   []
   (map
-    (fn [group-url] (result-parser/parsed (:body (client/get group-url))))
+    (fn [group-url]
+      (println (str "processing" group-url))
+      (result-parser/parsed (:body (client/get group-url))))
     my-group-urls))
 
 (defn results [] (string/join " \n "  (groups-content)))
