@@ -9,7 +9,7 @@
 
 (defn- interesting-keywords [] (:keywords config))
 
-(defn- interesting-keywords-regex [] (re-pattern (str "(?i)" (string/join "\\b|" (interesting-keywords)))))
+(defn- interesting-keywords-regex [] (re-pattern (str "(?i)" (string/join "|" (interesting-keywords)))))
 
 (defn- interesting-finds
   [results]
