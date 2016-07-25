@@ -1,9 +1,10 @@
 (ns freestuffly.gumtree.result-parser
-  (:require [hickory.core :as h])
-  (:require [clojure.set :as cset])
-  (:require [clojure.string :as string])
-  (:require [clj-yaml.core :as yaml])
-  (:require [hickory.select :as s]))
+  (:require [hickory.core :as h]
+            [clojure.set :as cset]
+            [clojure.string :as string]
+            [selmer.parser :as parser]
+            [clj-yaml.core :as yaml]
+            [hickory.select :as s]))
 
 (def ^:private config (yaml/parse-string (slurp "config/gumtree.yml")))
 
@@ -45,8 +46,7 @@
 (defn- presentable
   [results]
   (str "FOUND\n\n\n\n"
-       (string/join "\n\n\n"
-                    (map vals results))))
+    (parser/render-file "/email/gumtree/results.html" {:results (string/join "\n\n\n" (map vals results))})))
 
 (defn parsed
   [scraped-html]
