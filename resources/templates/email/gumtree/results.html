@@ -1,15 +1,8 @@
 {% extends "email/gumtree/base.html" %}
 
 {% block content %}
-<table>
   {% for result in results %}
-    <tr>
-      <td>
-        <strong>{{result.content}}<strong>
-        <p><a target="_blank" href="{{result.attrs.href}}">view</a><br /></p>
-      </td>
-    </tr>
+    <p><strong><a target="_blank" href="{{result.attrs.href}}">{{result.content}}</a><strong></p>
   {% endfor %}
-</table>
 {% endblock %}
 
