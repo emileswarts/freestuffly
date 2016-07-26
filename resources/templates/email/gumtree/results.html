@@ -4,8 +4,10 @@
 <table>
   {% for result in results %}
     <tr>
-      <td><strong>{{result.content}}<strong></td>
-      <td>{{result.attrs.href}}</td>
+      <td>
+        <strong>{{result.content}}<strong>
+        <p>{{result.attrs.href}}</p>
+      </td>
     </tr>
   {% endfor %}
 </table>
