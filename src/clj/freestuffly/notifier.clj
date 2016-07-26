@@ -14,7 +14,7 @@
   [content]
   (postmark {:to my-email
              :subject subject
-             :text content}))
+             :html content}))
 
 (defn notify-scrape-results
   []
