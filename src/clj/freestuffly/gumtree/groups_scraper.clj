@@ -10,7 +10,7 @@
 
 (def ^:private freecycle-results-per-page (:per_page config))
 
-(defn to-url
+(defn- to-url
   [group]
   (str "https://groups.freecycle.org/group/"
        group
@@ -18,10 +18,10 @@
        freecycle-results-per-page
        "&showall=off&include_offers=off&include_wanteds=off&include_receiveds=off&include_takens=off"))
 
-(def my-group-urls
+(def ^:private my-group-urls
   (map to-url freecycle-groups))
 
-(defn groups-content
+(defn- groups-content
   []
   (map
     (fn [group-url]
