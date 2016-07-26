@@ -18,7 +18,7 @@
     (fn [result]
       (re-find
         (re-matcher (interesting-keywords-regex)
-                    (first (:content (into {} result))))))
+                    (first (:content result)))))
     (set results)))
 
 (defn- site-tree
@@ -35,23 +35,17 @@
           (s/and (s/tag :a) (s/nth-child 1)))
       html)))
 
-(defn- interesting-value?
-  [content-values]
-  (not= (content-values :content) ["See details"]))
-
 (defn- content-for
   [html-vector]
   (filter interesting-value? (map #(select-keys % [:attrs :content]) html-vector)))
 
 (defn- presentable
   [results]
-  (str "FOUND\n\n\n\n"
-    (parser/render-file "/email/gumtree/results.html" {:results (string/join "\n\n\n" (map vals results))})))
+  (parser/render-file "/email/gumtree/results.html" {:results results}))
 
 (defn parsed
   [scraped-html]
   (presentable
     (interesting-finds
-      (content-for
-        (parsed-html
-          (site-tree scraped-html))))))
+      (parsed-html
+        (site-tree scraped-html)))))

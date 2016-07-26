@@ -1,0 +1,14 @@
+<html>
+  <body>
+    <table>
+      {% block content %}
+        {% for result in results %}
+          <tr>
+            <td><strong>{{result.content}}</strong></td>
+            <td>{{result.attrs.href}}</td>
+          </tr>
+        {% endfor %}
+      {% endblock %}
+    </table>
+  </body>
+</html>
