@@ -35,10 +35,6 @@
           (s/and (s/tag :a) (s/nth-child 1)))
       html)))
 
-(defn- content-for
-  [html-vector]
-  (filter interesting-value? (map #(select-keys % [:attrs :content]) html-vector)))
-
 (defn- presentable
   [results]
   (parser/render-file "/email/gumtree/results.html" {:results results}))
