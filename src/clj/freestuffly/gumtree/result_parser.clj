@@ -37,7 +37,7 @@
 
 (defn- presentable
   [results]
-  (parser/render-file "/email/gumtree/results.html" {:results results}))
+  (parser/render-file "email/gumtree/results.html" {:results results}))
 
 (defn parsed
   [scraped-html]
