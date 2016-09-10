@@ -1,8 +1,8 @@
 (ns freestuffly.gumtree.groups-scraper
-  (:require [clj-yaml.core :as yaml])
+  (:require [clj-yaml.core :as yaml]
             [clj-http.client :as client]
             [clojure.string :as string]
-            [freestuffly.gumtree.result-parser :as result-parser])
+            [freestuffly.gumtree.result-parser :as result-parser]))
 
 (def ^:private config (yaml/parse-string (slurp "config/gumtree.yml")))
 
