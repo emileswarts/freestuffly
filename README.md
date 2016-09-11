@@ -18,5 +18,5 @@ It runs on Heroku as a hobby project and sends emails via Postmark.
   - Set the required postmark details as environment variables on your machine (or wherever you decide to host it)
   `POSTMARK_API_KEY` and `POSTMARK_SENDER_SIGNATURE`
 
-## TODO
+## Todo
   - Expose a customisable interface to input keywords and groups.  This can then be persisted to a database.
