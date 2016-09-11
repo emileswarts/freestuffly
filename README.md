@@ -8,7 +8,7 @@ It runs on Heroku as a hobby project and sends emails via Postmark.
   - Clone this repo
   - Install leinegen `http://leiningen.org`
   - run `lein deps`
-  - add your preferred keywords and groups to the yaml config file `config/gumtree.yml`
+  - add your preferred keywords and groups to configuration file `config/gumtree.yml`
   - To run the actual scraper:
     - `lein repl`
     - `(ns freestuffly.gumtree.groups-scraper)`
