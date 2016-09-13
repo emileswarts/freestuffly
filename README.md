@@ -20,3 +20,4 @@ It runs on Heroku as a hobby project and sends emails via Postmark.
 
 ## Todo
   - Expose a customisable interface to input keywords and groups.  This can then be persisted to a database.
+
