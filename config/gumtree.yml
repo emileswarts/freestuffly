@@ -1,13 +1,8 @@
 groups:
-  - southwark-freecycle
-  - towerhamletsfreecycle
-  - LewishamUK
-  - LambethUK
-  - HackneyUK
+  - TowerHamletsUK
 per_page: 100
 keywords:
   - aquarium
-  - camp
   - cherry
   - emulsion
   - ergodox
@@ -37,3 +32,4 @@ keywords:
   - pink
   - lava
   - apple
+  - bookshelf
